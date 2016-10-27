@@ -24,10 +24,14 @@ Route::get('/accident',function (){
 	print($accidents);
 });
 Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
+	Route::get('/',function (){
+		echo "Hi";
+	});
 	Route::post('user','Api\UserController@login');
 	Route::post('user/signup','Api\UserController@signUp');
 	Route::group(['middleware' => ['jwt.auth']],function (){
 		Route::get('user/me','Api\UserController@index');
+		Route::post('user/update','Api\UserController@update');
 		Route::get('user/refresh-token','Api\UserController@refreshToken');
 		Route::get('accident','AccidentController@index');
 	});

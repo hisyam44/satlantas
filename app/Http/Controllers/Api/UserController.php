@@ -107,9 +107,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $auth = JWTAuth::parseToken();
+        $user = $auth->authenticate();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->password = $request->password;
+        $success = $user->save();
+        if(!$success){
+            return response()->json(['success' => 'false', 'error' => 'Error while updating data']);
+        }
+        return response()->json(['success' => 'true','user' => $user],200);
     }
 
     /**
