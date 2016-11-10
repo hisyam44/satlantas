@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
+use Mail;
 use JWTAuth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -62,6 +63,12 @@ class UserController extends Controller
         if(!$success){
             return response()->json(['success' => 'false', 'error' => 'Internal Service Error'],500);
         }
+        $confirmation_code = rand(1111111,1111111);
+        /*Mail::send('email.verify', ['confirmation_code' => $confirmation_code], function($message) use ($request) {
+            $message->from('no-reply@siltantas.com', 'Satlantas Polres Batang');
+            $message->to($request->email, $request->name)
+                    ->subject('Kode Verifikasi Aplikasi Satlantas Polres Batang');
+        });*/
         return response()->json(['success' => 'true'],200);
     }
 
