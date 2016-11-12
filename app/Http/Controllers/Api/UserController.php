@@ -121,7 +121,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->address = $request->address;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         $success = $user->save();
         if(!$success){
             return response()->json(['success' => 'false', 'error' => 'Error while updating data']);

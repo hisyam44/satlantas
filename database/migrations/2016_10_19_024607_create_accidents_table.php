@@ -16,7 +16,9 @@ class CreateAccidentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('title');
+            $table->string('excerpt');
             $table->text('description');
+            $table->text('photo');
             $table->enum('type',['kecelakaan','bencana alam','kemacetan'])->default('kecelakaan');
             $table->string('latitude');
             $table->string('longitude');
