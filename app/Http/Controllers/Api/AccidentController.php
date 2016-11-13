@@ -16,7 +16,7 @@ class AccidentController extends Controller
     	$auth = JWTAuth::parseToken();
         $user = $auth->authenticate();
         $accidents = Accident::orderBy('created_at','desc')->with('user')->get();
-        return response()->json($accidents);
+        return response()->json($accidents,200);
     }
     public function store(Request $request){
     	$auth = JWTAuth::parseToken();
@@ -30,9 +30,9 @@ class AccidentController extends Controller
         $accident->excerpt = substr($request->description,0,150)." ...";
         $accident->photo = $request->photo;
         $success = $user->accidents()->save($accident);
-        if($success){
-        	return response()->json(['user' => $user,'request' => $accident]);
-        	
+        if(!$success){
+        	return response()->json(['success' => 'false', 'error' => 'Error while trying to post a new Accident'],500);	
         }
+        return response()->json(['success' => 'true'],200);
     }
 }

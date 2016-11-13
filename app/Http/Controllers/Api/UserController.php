@@ -73,11 +73,18 @@ class UserController extends Controller
     }
 
     public function login(Request $request){
-        $user = User::where('email',$request->email)->first();
-        if(empty($user)){
+        $email = User::where('email',$request->email)->first();
+        $phone = User::where('phone',$request->email)->first();
+        if(!$email && !$phone){
             return response()->json(['success' => 'false','error' => 'user not found'],404);
         }
-        $credentials = $request->only('email','password');
+        if(!empty($email)){
+            $credentials = ['email' => $request->email, 'password' => $request->password];  
+        }
+        if(!empty($phone)){
+            $user_email = $phone->email;
+            $credentials = ['email' => $user_email, 'password' => $request->password];  
+        }
         $token = JWTAuth::attempt($credentials);
         if(!$token){
             return response()->json(['success' => 'false','error' => 'error while try to get token'],500);
