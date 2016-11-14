@@ -25,7 +25,7 @@ Route::get('/accident',function (){
 });
 Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
 	Route::get('/',function (){
-		echo "Hi";
+		echo "API v1";
 	});
 	Route::post('user','Api\UserController@login');
 	Route::post('user/signup','Api\UserController@signUp');
@@ -34,6 +34,8 @@ Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
 		Route::post('user/update','Api\UserController@update');
 		Route::get('user/refresh-token','Api\UserController@refreshToken');
 		Route::post('accident/create','Api\AccidentController@store');
+		Route::post('accident/update','Api\AccidentController@update');
 		Route::get('accident','Api\AccidentController@index');
+		Route::get('accident/{limit}','Api\AccidentController@limit');
 	});
 });
