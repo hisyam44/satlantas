@@ -12,10 +12,16 @@ use App\Accident;
 
 class AccidentController extends Controller
 {
-    public function index(){
+    public function index($type){
     	$auth = JWTAuth::parseToken();
         $user = $auth->authenticate();
-        $accidents = Accident::orderBy('created_at','desc')->with('user')->take(5)->get();
+        if($type == 'accident'){
+            $accidents = Accident::orderBy('created_at','desc')->where('type','kecelakaan')->with('user')->take(5)->get();
+        }elseif($type == 'kemacetan'){
+            $accidents = Accident::orderBy('created_at','desc')->where('type','kemacetan')->with('user')->take(5)->get();
+        }else{
+            $accidents = Accident::orderBy('created_at','desc')->where('type','bencana alam')->with('user')->take(5)->get();
+        }
         return response()->json($accidents,200);
     }
     public function store(Request $request){
@@ -36,11 +42,19 @@ class AccidentController extends Controller
         return response()->json(['success' => 'true'],200);
     }
     public function update(Request $request){
-        $accidents = Accident::where('created_at','>',$request->date)->get();
-        return response()->json(['success' => 'true', 'accidents' => count($accidents)]);
+        $accidents = Accident::where('created_at','>',$request->date)->where('type','kecelakaan')->get();
+        $kemacetan = Accident::where('created_at','>',$request->date)->where('type','kemacetan')->get();
+        $bencana = Accident::where('created_at','>',$request->date)->where('type','bencana alam')->get();
+        return response()->json(['success' => 'true', 'accidents' => count($accidents), 'kemacetan' => count($kemacetan), 'bencana' => count($bencana)]);
     }
-    public function limit($limit){
-        $accidents = Accident::orderBy('created_at','desc')->take($limit)->get();
+    public function limit($type,$limit){
+        if($type == 'accident'){
+            $accidents = Accident::orderBy('created_at','desc')->where('type','kecelakaan')->with('user')->take($limit)->get();   
+        }elseif($type == 'kemacetan'){
+            $accidents = Accident::orderBy('created_at','desc')->where('type','kemacetan')->with('user')->take($limit)->get();
+        }else{
+            $accidents = Accident::orderBy('created_at','desc')->where('type','bencana alam')->with('user')->take($limit)->get();
+        }
         return response()->json($accidents);
     }
 }
