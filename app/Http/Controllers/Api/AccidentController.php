@@ -57,4 +57,9 @@ class AccidentController extends Controller
         }
         return response()->json($accidents);
     }
+    public function getLastDateUpdate(){
+        $accident = Accident::orderBy('created_at','desc')->first();
+        $date = $accident->created_at;
+        return response()->json($date);
+    }
 }
