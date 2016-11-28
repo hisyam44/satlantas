@@ -25,19 +25,25 @@ class AccidentController extends Controller
         return response()->json($accidents,200);
     }
     public function store(Request $request){
+        //return response()->json($request);
     	$auth = JWTAuth::parseToken();
         $user = $auth->authenticate();
         $accident = new Accident;
+        $accident->user_id = $user->id;
         $accident->title = $request->title;
         $accident->type = $request->type;
         $accident->latitude = $request->latitude;
         $accident->longitude = $request->longitude;
         $accident->description = $request->description;
         $accident->excerpt = substr($request->description,0,150)." ...";
-        $accident->photo = $request->photo;
-        $success = $user->accidents()->save($accident);
+        $success = $accident->save();
         if(!$success){
-        	return response()->json(['success' => 'false', 'error' => 'Error while trying to post a new Accident'],500);	
+            return response()->json(['success' => 'false', 'error' => 'Error while trying to post a new Accident'],500);    
+        }
+       foreach ($request->photo as $photo) {
+            $new_photo = new \App\Photo;
+            $new_photo->photo = $photo;
+            $accident->photos()->save($new_photo);
         }
         return response()->json(['success' => 'true'],200);
     }
