@@ -68,4 +68,16 @@ class AccidentController extends Controller
         $date = $accident->created_at;
         return response()->json($date);
     }
+    public function photo($id){
+        $accident = Accident::find($id);
+        if($accident == null){
+            return response()->json(['success' => 'false','error'=>'Accident Not Found'],404);
+        }
+        $photos = $accident->photos;
+        return response()->json(['success' =>'true','photos'=>$photos],200);
+    }
+    public function getDate(){
+        $date = \Carbon\Carbon::now();
+        return response()->json($date);
+    }
 }
