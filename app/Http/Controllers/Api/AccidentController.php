@@ -80,4 +80,8 @@ class AccidentController extends Controller
         $date = \Carbon\Carbon::now();
         return response()->json($date);
     }
+    public function getMenuList(){
+        $menus = \App\Menu::all();
+        return response()->json($menus);
+    }
 }

@@ -39,6 +39,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
 		Route::get('accident/type/{type}/{limit}','Api\AccidentController@limit');
 		Route::get('accident/getDate','Api\AccidentController@getDate');
 		Route::get('accident/getLastDateUpdate','Api\AccidentController@getLastDateUpdate');
+		Route::get('getMenuList','Api\AccidentController@getMenuList');
 		Route::get('accident/photo/{id}','Api\AccidentController@photo');
 	});
 });
