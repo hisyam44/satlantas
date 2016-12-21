@@ -40,12 +40,24 @@ class AccidentController extends Controller
         if(!$success){
             return response()->json(['success' => 'false', 'error' => 'Error while trying to post a new Accident'],500);    
         }
-       foreach ($request->photo as $photo) {
+        return response()->json(['success' => 'true', 'accident_id' => $accident->id],200);
+    }
+    public function upload(Request $request){
+        if($request->hasFile('photo')){
+            $photo = $request->file('photo');
+            $extension = $photo->getClientOriginalExtension();
+            $name = rand(1111111,999999).".".$extension;
+            $photo->move("uploads",$name);
             $new_photo = new \App\Photo;
-            $new_photo->photo = $photo;
-            $accident->photos()->save($new_photo);
+            $new_photo->photo = url('/').'/uploads/'.$name;
+            $new_photo->accident_id = $request->accident_id;
+            $success = $new_photo->save();
+            if($success){
+                return response()->json(['success' => true]);
+            }
+        }else{
+            return response()->json(['success' => false, 'error' => 'theres no file detected']);
         }
-        return response()->json(['success' => 'true'],200);
     }
     public function update(Request $request){
         $accidents = Accident::where('created_at','>',$request->date)->where('type','kecelakaan')->get();

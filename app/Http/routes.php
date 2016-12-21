@@ -34,6 +34,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
 		Route::post('user/update','Api\UserController@update');
 		Route::get('user/refresh-token','Api\UserController@refreshToken');
 		Route::post('accident/create','Api\AccidentController@store');
+		Route::post('accident/upload','Api\AccidentController@upload');
 		Route::post('accident/update','Api\AccidentController@update');
 		Route::get('accident/type/{type}','Api\AccidentController@index');
 		Route::get('accident/type/{type}/{limit}','Api\AccidentController@limit');
