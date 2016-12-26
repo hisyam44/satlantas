@@ -16,11 +16,11 @@ class AccidentController extends Controller
     	$auth = JWTAuth::parseToken();
         $user = $auth->authenticate();
         if($type == 'accident'){
-            $accidents = Accident::orderBy('created_at','desc')->where('type','kecelakaan')->with('user')->take(5)->get();
+            $accidents = Accident::orderBy('created_at','desc')->where('type','kecelakaan')->with('user','photos')->take(5)->get();
         }elseif($type == 'kemacetan'){
-            $accidents = Accident::orderBy('created_at','desc')->where('type','kemacetan')->with('user')->take(5)->get();
+            $accidents = Accident::orderBy('created_at','desc')->where('type','kemacetan')->with('user','photos')->take(5)->get();
         }else{
-            $accidents = Accident::orderBy('created_at','desc')->where('type','bencana alam')->with('user')->take(5)->get();
+            $accidents = Accident::orderBy('created_at','desc')->where('type','bencana alam')->with('user','photos')->take(5)->get();
         }
         return response()->json($accidents,200);
     }

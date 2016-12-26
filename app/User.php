@@ -27,4 +27,7 @@ class User extends Authenticatable
     public function accidents(){
         return $this->hasMany('App\Accident');
     }
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
 }

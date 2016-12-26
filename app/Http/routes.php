@@ -42,5 +42,9 @@ Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
 		Route::get('accident/getLastDateUpdate','Api\AccidentController@getLastDateUpdate');
 		Route::get('getMenuList','Api\AccidentController@getMenuList');
 		Route::get('accident/photo/{id}','Api\AccidentController@photo');
+		Route::get('info','Api\InfoController@index');
+		Route::get('regident','Api\InfoController@allRegident');
+		Route::get('phone','Api\InfoController@phone');
+		Route::post('comment','Api\CommentController@store');
 	});
 });
