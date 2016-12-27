@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
         $user->password = bcrypt("qweasd");
         $user->address = "Jl Pelita no.1 Kelurahan Jenggot Kota Pekalongan";
         $user->phone = "079876543445";
+        $user->role = "admin";
         $user->save();
         //for($i=0;$i<5;$i++){
         $excerpt = "Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porttitor accumsan tincidunt.";

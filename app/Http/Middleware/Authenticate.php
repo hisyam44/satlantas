@@ -24,7 +24,11 @@ class Authenticate
                 return redirect()->guest('login');
             }
         }
-
+        $user = Auth::authenticate();
+        if($user->role !== "admin"){
+            //return response('Unauthorized.', 401);
+            return redirect('/logout');
+        }
         return $next($request);
     }
 }

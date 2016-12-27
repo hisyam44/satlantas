@@ -67,11 +67,11 @@ class AccidentController extends Controller
     }
     public function limit($type,$limit){
         if($type == 'accident'){
-            $accidents = Accident::orderBy('created_at','desc')->where('type','kecelakaan')->with('user')->take($limit)->get();   
+            $accidents = Accident::orderBy('created_at','desc')->where('type','kecelakaan')->with('user','photos')->take($limit)->get();   
         }elseif($type == 'kemacetan'){
-            $accidents = Accident::orderBy('created_at','desc')->where('type','kemacetan')->with('user')->take($limit)->get();
+            $accidents = Accident::orderBy('created_at','desc')->where('type','kemacetan')->with('user','photos')->take($limit)->get();
         }else{
-            $accidents = Accident::orderBy('created_at','desc')->where('type','bencana alam')->with('user')->take($limit)->get();
+            $accidents = Accident::orderBy('created_at','desc')->where('type','bencana alam')->with('user','photos')->take($limit)->get();
         }
         return response()->json($accidents);
     }

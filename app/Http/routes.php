@@ -11,17 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::auth();
+Route::group(['middleware' => 'auth'], function () { 
+	Route::get('/', 'HomeController@index');
+	Route::get('/accident',function (){
+		$accidents = new App\Accident;
+		$accidents = $accidents->all();
+		print($accidents);
+	});
 
-Route::get('/home', 'HomeController@index');
-Route::get('/accident',function (){
-	$accidents = new App\Accident;
-	$accidents = $accidents->all();
-	print($accidents);
 });
 Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
 	Route::get('/',function (){
