@@ -16,8 +16,9 @@ class AccidentController extends Controller
      */
     public function index()
     {
-        $accidents = Accident::orderBy('created_at')->get();
-        return response()->json($accidents,200);
+        $data['accidents'] = Accident::orderBy('created_at')->get();
+        //return response()->json($accidents,200);
+        return view('web.accidents',$data);
     }
 
     /**

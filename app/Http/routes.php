@@ -15,11 +15,7 @@
 Route::auth();
 Route::group(['middleware' => 'auth'], function () { 
 	Route::get('/', 'HomeController@index');
-	Route::get('/accident',function (){
-		$accidents = new App\Accident;
-		$accidents = $accidents->all();
-		print($accidents);
-	});
+	Route::get('/accident','AccidentController@index');
 
 });
 Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
