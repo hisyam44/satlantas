@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Accident;
 
-class AccidentController extends Controller
+use App\User;
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +17,10 @@ class AccidentController extends Controller
      */
     public function index()
     {
-        $data['accidents'] = Accident::orderBy('created_at')->with('user','photos')->get();
-        //return response()->json($accidents,200);
-        return view('web.accidents',$data);
+        $users = User::orderBy('created_at','desc')->where('role','user')->get();
+        $data['users'] = $users;
+        return view('web.user',$data);
+        //return response()->json($users);
     }
 
     /**

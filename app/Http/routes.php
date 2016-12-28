@@ -15,8 +15,9 @@
 Route::auth();
 Route::group(['middleware' => 'auth'], function () { 
 	Route::get('/', 'HomeController@index');
-	Route::get('/accident','AccidentController@index');
-
+	Route::resource('/accident','AccidentController');
+	Route::resource('/user','UserController');
+	Route::resource('/place','PlaceController');
 });
 Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
 	Route::get('/',function (){

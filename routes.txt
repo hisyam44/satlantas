@@ -1,0 +1,53 @@
++--------+-----------+----------------------------------+------------------+-----------------------------------------------------------------+------------------+
+| Domain | Method    | URI                              | Name             | Action                                                          | Middleware       |
++--------+-----------+----------------------------------+------------------+-----------------------------------------------------------------+------------------+
+|        | GET|HEAD  | /                                |                  | App\Http\Controllers\HomeController@index                       | web,auth         |
+|        | POST      | accident                         | accident.store   | App\Http\Controllers\AccidentController@store                   | web,auth         |
+|        | GET|HEAD  | accident                         | accident.index   | App\Http\Controllers\AccidentController@index                   | web,auth         |
+|        | GET|HEAD  | accident/create                  | accident.create  | App\Http\Controllers\AccidentController@create                  | web,auth         |
+|        | PUT|PATCH | accident/{accident}              | accident.update  | App\Http\Controllers\AccidentController@update                  | web,auth         |
+|        | DELETE    | accident/{accident}              | accident.destroy | App\Http\Controllers\AccidentController@destroy                 | web,auth         |
+|        | GET|HEAD  | accident/{accident}              | accident.show    | App\Http\Controllers\AccidentController@show                    | web,auth         |
+|        | GET|HEAD  | accident/{accident}/edit         | accident.edit    | App\Http\Controllers\AccidentController@edit                    | web,auth         |
+|        | GET|HEAD  | api                              |                  | Closure                                                         | web,api          |
+|        | POST      | api/accident/create              |                  | App\Http\Controllers\Api\AccidentController@store               | web,api,jwt.auth |
+|        | GET|HEAD  | api/accident/getDate             |                  | App\Http\Controllers\Api\AccidentController@getDate             | web,api,jwt.auth |
+|        | GET|HEAD  | api/accident/getLastDateUpdate   |                  | App\Http\Controllers\Api\AccidentController@getLastDateUpdate   | web,api,jwt.auth |
+|        | GET|HEAD  | api/accident/photo/{id}          |                  | App\Http\Controllers\Api\AccidentController@photo               | web,api,jwt.auth |
+|        | GET|HEAD  | api/accident/type/{type}         |                  | App\Http\Controllers\Api\AccidentController@index               | web,api,jwt.auth |
+|        | GET|HEAD  | api/accident/type/{type}/{limit} |                  | App\Http\Controllers\Api\AccidentController@limit               | web,api,jwt.auth |
+|        | POST      | api/accident/update              |                  | App\Http\Controllers\Api\AccidentController@update              | web,api,jwt.auth |
+|        | POST      | api/accident/upload              |                  | App\Http\Controllers\Api\AccidentController@upload              | web,api,jwt.auth |
+|        | POST      | api/comment                      |                  | App\Http\Controllers\Api\CommentController@store                | web,api,jwt.auth |
+|        | GET|HEAD  | api/getMenuList                  |                  | App\Http\Controllers\Api\AccidentController@getMenuList         | web,api,jwt.auth |
+|        | GET|HEAD  | api/info                         |                  | App\Http\Controllers\Api\InfoController@index                   | web,api,jwt.auth |
+|        | GET|HEAD  | api/phone                        |                  | App\Http\Controllers\Api\InfoController@phone                   | web,api,jwt.auth |
+|        | GET|HEAD  | api/regident                     |                  | App\Http\Controllers\Api\InfoController@allRegident             | web,api,jwt.auth |
+|        | POST      | api/user                         |                  | App\Http\Controllers\Api\UserController@login                   | web,api          |
+|        | GET|HEAD  | api/user/me                      |                  | App\Http\Controllers\Api\UserController@index                   | web,api,jwt.auth |
+|        | GET|HEAD  | api/user/refresh-token           |                  | App\Http\Controllers\Api\UserController@refreshToken            | web,api,jwt.auth |
+|        | POST      | api/user/signup                  |                  | App\Http\Controllers\Api\UserController@signUp                  | web,api          |
+|        | POST      | api/user/update                  |                  | App\Http\Controllers\Api\UserController@update                  | web,api,jwt.auth |
+|        | POST      | login                            |                  | App\Http\Controllers\Auth\AuthController@login                  | web,guest        |
+|        | GET|HEAD  | login                            |                  | App\Http\Controllers\Auth\AuthController@showLoginForm          | web,guest        |
+|        | GET|HEAD  | logout                           |                  | App\Http\Controllers\Auth\AuthController@logout                 | web              |
+|        | POST      | password/email                   |                  | App\Http\Controllers\Auth\PasswordController@sendResetLinkEmail | web,guest        |
+|        | POST      | password/reset                   |                  | App\Http\Controllers\Auth\PasswordController@reset              | web,guest        |
+|        | GET|HEAD  | password/reset/{token?}          |                  | App\Http\Controllers\Auth\PasswordController@showResetForm      | web,guest        |
+|        | GET|HEAD  | place                            | place.index      | App\Http\Controllers\PlaceController@index                      | web,auth         |
+|        | POST      | place                            | place.store      | App\Http\Controllers\PlaceController@store                      | web,auth         |
+|        | GET|HEAD  | place/create                     | place.create     | App\Http\Controllers\PlaceController@create                     | web,auth         |
+|        | DELETE    | place/{place}                    | place.destroy    | App\Http\Controllers\PlaceController@destroy                    | web,auth         |
+|        | PUT|PATCH | place/{place}                    | place.update     | App\Http\Controllers\PlaceController@update                     | web,auth         |
+|        | GET|HEAD  | place/{place}                    | place.show       | App\Http\Controllers\PlaceController@show                       | web,auth         |
+|        | GET|HEAD  | place/{place}/edit               | place.edit       | App\Http\Controllers\PlaceController@edit                       | web,auth         |
+|        | GET|HEAD  | register                         |                  | App\Http\Controllers\Auth\AuthController@showRegistrationForm   | web,guest        |
+|        | POST      | register                         |                  | App\Http\Controllers\Auth\AuthController@register               | web,guest        |
+|        | POST      | user                             | user.store       | App\Http\Controllers\UserController@store                       | web,auth         |
+|        | GET|HEAD  | user                             | user.index       | App\Http\Controllers\UserController@index                       | web,auth         |
+|        | GET|HEAD  | user/create                      | user.create      | App\Http\Controllers\UserController@create                      | web,auth         |
+|        | PUT|PATCH | user/{user}                      | user.update      | App\Http\Controllers\UserController@update                      | web,auth         |
+|        | DELETE    | user/{user}                      | user.destroy     | App\Http\Controllers\UserController@destroy                     | web,auth         |
+|        | GET|HEAD  | user/{user}                      | user.show        | App\Http\Controllers\UserController@show                        | web,auth         |
+|        | GET|HEAD  | user/{user}/edit                 | user.edit        | App\Http\Controllers\UserController@edit                        | web,auth         |
++--------+-----------+----------------------------------+------------------+-----------------------------------------------------------------+------------------+

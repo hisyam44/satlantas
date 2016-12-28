@@ -9,13 +9,17 @@
  					<thead>
  						<tr>
  							<th>Title</th>
- 							<th>Type</th>
+                            <th>Type</th>
+                            <th>Pelapor</th>
+ 							<th>Action</th>
 						 </tr>
 					</thead>
 					<tbody>
 					@foreach($accidents as $accident)
  						<tr>
  							<td>{{ $accident->title }}</td>
+                            <td>{{ $accident->type }}</td>
+                            <td>{{ $accident->user->name }}/{{ $accident->user->phone }}</td>
  							<td>{{ $accident->type }}</td>
  						</tr>
                     @endforeach
