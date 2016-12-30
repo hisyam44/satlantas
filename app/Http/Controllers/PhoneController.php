@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Accident;
+use App\Phone;
 
-class AccidentController extends Controller
+class PhoneController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class AccidentController extends Controller
      */
     public function index()
     {
-        $data['accidents'] = Accident::orderBy('created_at','desc')->get();
-        //return response()->json($accidents,200);
-        return view('web.accidents',$data);
+        $phones = Phone::orderBy('created_at','desc')->get();
+        $data['phones'] = $phones;
+        return view('web.phone',$data);
     }
 
     /**
@@ -28,7 +28,7 @@ class AccidentController extends Controller
      */
     public function create()
     {
-        //
+        return view('web.phone_create');
     }
 
     /**
@@ -39,7 +39,14 @@ class AccidentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $phone = new Phone();
+        $phone->name = $request->name;
+        $phone->phone = 'tel:+62'.$request->phone;
+        $success = $phone->save();
+        if(!$success){
+            return response()->json(['error' => 'error while creating']);
+        }
+        return redirect('/phone');
     }
 
     /**
@@ -50,9 +57,7 @@ class AccidentController extends Controller
      */
     public function show($id)
     {
-        $accident = Accident::where('id',$id)->with('user','photos')->first();
-        $data['accident'] = $accident;
-        return view('web.accident_details',$data);
+        //
     }
 
     /**
@@ -63,7 +68,9 @@ class AccidentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $phone = Phone::findOrFail($id);
+        $data['phone'] = $phone;
+        return view('web.phone_edit',$data);
     }
 
     /**
@@ -75,7 +82,14 @@ class AccidentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $phone = Phone::findOrFail($id);
+        $phone->name = $request->name;
+        $phone->phone = 'tel:+62'.$request->phone;
+        $success = $phone->save();
+        if(!$success){
+            return response()->json(['error' => 'error while updating']);
+        }
+        return redirect('/phone');
     }
 
     /**
@@ -86,14 +100,14 @@ class AccidentController extends Controller
      */
     public function destroy($id)
     {
-        $accident = Accident::find($id);
-        if($accident == null){
-            return redirect('/accident');
+        $phone = Phone::find($id);
+        if($phone == null){
+            return redirect('/phone');
         }
-        $success = $accident->delete();
+        $success = $phone->delete();
         if(!$success){
             return response()->json(['error' => 'error while deleting']);
         }
-        return redirect('/accident');
+        return redirect('/phone');
     }
 }

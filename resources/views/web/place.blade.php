@@ -22,8 +22,9 @@
  							<td>{{ $place->name }}</td>
                             <td>
                                 <div style="width: 100px;height: 100px;overflow: hidden;">
-                                    <img src="{{ $place->photo }}" class="img img-thumbnail"></td>
+                                    <img src="{{ $place->photo }}" class="img img-thumbnail">
                                 </div>
+                            </td>
                             <td>{{ $place->address }}</td>
                             <td>{{ $place->description }}</td>
                             <td>

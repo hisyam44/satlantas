@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Satlantas Polres Batang</title>
 
     <!-- Fonts -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -17,11 +17,20 @@
 
     <style>
         body {
-            font-family: 'Lato';
+            font-family: 'helvetica';
         }
 
         .fa-btn {
             margin-right: 6px;
+        }
+        .kemacetan{
+            background: #dff0d8;
+        }
+        .kecelakaan{
+            background: #fcf8e3;
+        }
+        .bencana{
+            background: #f2dede;
         }
     </style>
 </head>

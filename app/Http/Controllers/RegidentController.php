@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Accident;
+use App\Regident;
 
-class AccidentController extends Controller
+class RegidentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class AccidentController extends Controller
      */
     public function index()
     {
-        $data['accidents'] = Accident::orderBy('created_at','desc')->get();
-        //return response()->json($accidents,200);
-        return view('web.accidents',$data);
+        $regidents = Regident::orderBy('created_at','desc')->get();
+        $data['regidents'] = $regidents;
+        return view('web.regident',$data);
     }
 
     /**
@@ -28,7 +28,7 @@ class AccidentController extends Controller
      */
     public function create()
     {
-        //
+        return view('web.regident_create');
     }
 
     /**
@@ -39,7 +39,15 @@ class AccidentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $regident = new Regident();
+        $regident->title = $request->title;
+        $regident->link = $request->title;
+        $regident->description = $request->description;
+        $success = $regident->save();
+        if(!$success){
+            return response()->json(['error' => 'error while creating']);
+        }
+        return redirect('/regident');
     }
 
     /**
@@ -50,9 +58,7 @@ class AccidentController extends Controller
      */
     public function show($id)
     {
-        $accident = Accident::where('id',$id)->with('user','photos')->first();
-        $data['accident'] = $accident;
-        return view('web.accident_details',$data);
+        //
     }
 
     /**
@@ -63,7 +69,9 @@ class AccidentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $regident = Regident::findOrFail($id);
+        $data['regident'] = $regident;
+        return view('web.regident_edit',$data);
     }
 
     /**
@@ -75,7 +83,15 @@ class AccidentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $regident = Regident::findOrFail($id);
+        $regident->title = $request->title;
+        $regident->link = $request->link;
+        $regident->description = $request->description;
+        $success = $regident->save();
+        if(!$success){
+            return response()->json(['error' => 'error while updating']);
+        }
+        return redirect('/regident');
     }
 
     /**
@@ -86,14 +102,14 @@ class AccidentController extends Controller
      */
     public function destroy($id)
     {
-        $accident = Accident::find($id);
-        if($accident == null){
-            return redirect('/accident');
+        $regident = Regident::find($id);
+        if($regident == null){
+            return redirect('/regident');
         }
-        $success = $accident->delete();
+        $success = $regident->delete();
         if(!$success){
             return response()->json(['error' => 'error while deleting']);
         }
-        return redirect('/accident');
+        return redirect('/regident');
     }
 }

@@ -18,6 +18,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('/accident','AccidentController');
 	Route::resource('/user','UserController');
 	Route::resource('/place','PlaceController');
+	Route::resource('/regident','RegidentController');
+	Route::resource('/phone','PhoneController');
+	Route::resource('/comment','CommentController');
 });
 Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
 	Route::get('/',function (){

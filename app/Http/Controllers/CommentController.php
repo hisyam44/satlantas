@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Accident;
+use App\Comment;
 
-class AccidentController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class AccidentController extends Controller
      */
     public function index()
     {
-        $data['accidents'] = Accident::orderBy('created_at','desc')->get();
-        //return response()->json($accidents,200);
-        return view('web.accidents',$data);
+        $comments = Comment::orderBy('created_at','desc')->with('user')->get();
+        $data['comments'] = $comments;
+        return view('web.comment',$data);
     }
 
     /**
@@ -50,9 +50,7 @@ class AccidentController extends Controller
      */
     public function show($id)
     {
-        $accident = Accident::where('id',$id)->with('user','photos')->first();
-        $data['accident'] = $accident;
-        return view('web.accident_details',$data);
+        //
     }
 
     /**
@@ -86,14 +84,14 @@ class AccidentController extends Controller
      */
     public function destroy($id)
     {
-        $accident = Accident::find($id);
-        if($accident == null){
-            return redirect('/accident');
+        $comment = Comment::find($id);
+        if($comment == null){
+            return redirect('/comment');
         }
-        $success = $accident->delete();
+        $success = $comment->delete();
         if(!$success){
             return response()->json(['error' => 'error while deleting']);
         }
-        return redirect('/accident');
+        return redirect('/comment');
     }
 }

@@ -19,6 +19,8 @@ class UserController extends Controller
     {
         $users = User::orderBy('created_at','desc')->where('role','user')->get();
         $data['users'] = $users;
+        $users = User::orderBy('created_at','desc')->where('role','admin')->get();
+        $data['admins'] = $users;
         return view('web.user',$data);
         //return response()->json($users);
     }
@@ -30,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('web.user_create');
     }
 
     /**
@@ -41,7 +43,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+        $user->role = "admin";
+        $user->password = bcrypt($request->password);
+        $success = $user->save();
+        if(!$success){
+            return response()->json(['error' => 'error while creating']);
+        }
+        return redirect('/user');
     }
 
     /**
@@ -86,6 +99,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        if($user == null){
+            return redirect('/user');
+        }
+        $success = $user->delete();
+        if(!$success){
+            return response()->json(['error' => 'error while deleting']);
+        }
+        return redirect('/user');
     }
 }
